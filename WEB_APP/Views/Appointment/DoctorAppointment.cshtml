@@ -1,0 +1,35 @@
+﻿@using DATA.Models
+@model IEnumerable<Appointment>
+
+<h2>Appointments</h2>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Appointment Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.Patient.Name</td>
+                <td>@appointment.Doctor.Name</td>
+                <td>@appointment.AppointmentDate.ToString("g")</td>
+                <td>@appointment.AppointmentStatus</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = appointment.Id })" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = appointment.Id })" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("Create")" class="btn btn-success">Create New Appointment</a>

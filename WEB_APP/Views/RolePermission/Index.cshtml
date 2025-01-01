@@ -1,0 +1,85 @@
+﻿@using DATA.Models
+@model IEnumerable<RolePermission>
+@{
+    ViewBag.Title = "Role Permission list";
+}
+
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large; " role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div class="table-responsive">
+            <table id="example5" class="table display table-condensed table-sm">
+                <thead>
+                    <tr>
+                        @*                    <th>
+                                ID
+                            </th>*@
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Permission
+                        </th>
+                        @*                    <th style="width: 60px;">
+                                Action
+                            </th>*@
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*                      <td>
+                                    @Html.ActionLink(@item.ID.ToString(), "Details", new { id=item.ID })
+                                </td>*@
+                            <td>
+                                @item.Role.Name
+                            </td>
+                            <td>
+                                @item.Permission.Name
+                            </td>
+                            @*                        <td>
+                                    <a class="btn btn-primary btn-xs"   data-toggle="tooltip" title="Edit" data-placement="top" href="Edit/@item.ID" >
+                                            <span class="fa fa-edit"></span>
+                                    </a>
+                                    <a class="btn btn-danger btn-xs"   data-toggle="tooltip" title="Delete" data-placement="top" href="Delete/@item.ID" >
+                                            <span class="fa fa-trash"></span>
+                                    </a>
+                                </td>  *@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <h4 style="margin-left: 5px;">To Assign Permission to Role @Html.ActionLink("click here", "Create")</h4>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#manual-in-out2").addClass('collapse in');
+            $("#manual-in-out4").addClass('collapse in');
+
+            $("#rp-id").addClass('active');
+        });
+    </script>
+
+}
+

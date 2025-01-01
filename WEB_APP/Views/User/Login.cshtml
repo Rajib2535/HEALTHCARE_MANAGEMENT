@@ -1,0 +1,90 @@
+﻿@model CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.Login
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<style>
+    .login-page{
+        background-color: #00203f !important;
+    }
+</style>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="@Url.Action("Login","User")"></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @id = "loginform" }))
+            {
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="userName" placeholder="Username">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   @*  <div class="form-group">
+                        <a asp-action="ForgotPassword">Forgot Password</a>
+                    </div> *@
+                    <!-- /.col -->
+                <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+
+                  
+                    <!-- /.col -->
+            </div>
+            }
+            <br />
+            <p style="margin-left: 5px;">To Create New User @Html.ActionLink("click here", "PatientRegistration", "user")</p>
+            <div>
+                @{
+                    //string text = ViewBag.failed == null ? string.Empty : Convert.ToString(ViewBag.failed);
+                    string text = string.Empty;
+                    
+                    if (TempData["SessionExpired"] != null)
+                    {
+                        text = Convert.ToString(TempData["SessionExpired"]);
+                    }
+                    else if (TempData["PasswordChangeMessage"] != null)
+                    {
+                        text = Convert.ToString(TempData["PasswordChangeMessage"]);
+                    }
+                    else if (TempData["PatientRegistation"] != null)
+                    {
+                        text = Convert.ToString(TempData["PatientRegistation"]);
+                    }
+                    else if (ViewBag.failed != null)
+                    {
+                        text = Convert.ToString(ViewBag.failed);
+                    }
+                }
+                @text
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

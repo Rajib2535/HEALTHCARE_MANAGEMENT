@@ -1,0 +1,121 @@
+﻿@using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models
+@model CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.UserInfoViewModel
+
+@{ Layout = null; }
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />                  
+            <input type="hidden" asp-for="CreateTime" />
+            <input type="hidden" asp-for="SaltedPassword"/>
+            <input type="hidden" asp-for="CreatedBy"/>
+            <input type="hidden" asp-for="IsPasswordReset"/>
+            <input type="hidden" asp-for="Userid"/>
+            <div class="row">
+@*                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Userid" class="control-label"></label>
+                        <div class="input-group">
+                            <input asp-for="Userid" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                        </div>
+                        <span asp-validation-for="Userid" class="text-danger"></span>
+                    </div>
+                </div>*@
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <div class="input-group">
+                            <input type="text" asp-for="Name" style="text-transform:lowercase" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <div class="input-group">                           
+                            <input type="text" asp-for="Password" class="form-control" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+                                    
+            <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <div class="input-group">
+                                <input type="text" asp-for="Email" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Mobile" class="control-label"></label>
+                            <div class="input-group">
+                                <input type="text" asp-for="Mobile" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                    </div>
+            </div>
+           @*  <div class="row">
+
+                <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="stakeholderUserId">Select StakeHolders</label>
+                            <select asp-for="stakeholderUserId" class="form-control form-control-sm">
+                                <option value="0">All StakeHolders</option>
+                                @foreach (var stakeholderUser in Stakeholders)
+                                {
+                                    <option value="@stakeholderUser.Id">@stakeholderUser.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+            </div> *@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input type="checkbox" asp-for="StatusInput" />
+                        <span asp-validation-for="StatusInput" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 offset-md-3">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    <script>
+        $(document).ready(function () {
+        //LoadCurrency();
+    });
+
+    //function LoadCurrency(){
+    //    GetDropdown("Url.Action("GetAllCurrency","Common")","#ddlCurrencyList","Bank");
+    //    var currencyCode = 'Model.CurrencyCode';
+    //    //$("#ddlBankList").prop("disabled", parseInt(bankId) > 0);
+    //    $("#ddlCurrencyList").val(currencyCode).change();
+    //}
+    </script>
+
+
+
+
+

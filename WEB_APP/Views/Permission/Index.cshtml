@@ -1,0 +1,103 @@
+﻿@using DATA.Models
+@model IEnumerable<Permission>
+
+@{
+    ViewBag.Title = "Permission List";
+}
+
+
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large; " role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div class="table-responsive">
+            <table id="example5" class="table display table-condensed table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Permission Title
+                        </th>
+                        <th>
+                            Menu
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th style="width: 60px;">
+                            Action
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in Model)
+                    {
+                        bool? item_status = item.IsActive;
+                        string status = string.Empty;
+                        if (item_status == true)
+                        {
+                            status = "Active";
+                        }
+                        else
+                        {
+                            status = "Inactive";
+                        }
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Id)
+                               @* @Html.ActionLink(@item.Id.ToString(), "Details", new { id = item.Id })*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Name)
+                                @*@Html.ActionLink(@item.Name, "Details", new { id = item.Id })*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Menu.Url)
+                                @*@Html.ActionLink(@item.Menu.Url, "Details", new { id = item.Id })*@
+                            </td>
+                            <td>                                
+                                @status
+                            </td>
+                            <td>
+                                <a data-toggle="tooltip" title="Edit" data-placement="top" href="@Url.Action("Edit","Permission",new {id=item.Id})" class="btn btn-primary btn-xs"><span class="fa fa-edit"></span></a>
+                                <a data-toggle="tooltip" title="Delete" data-placement="top" href="@Url.Action("Delete","Permission",new {id=item.Id})" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <h4 style="margin-left: 5px;">To Create New Permission @Html.ActionLink("click here", "Create")</h4>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+    $(document).ready(function(){
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out4").addClass('collapse in');
+
+    	$("#permission-id").addClass('active');
+    });
+</script>
+}
+
+

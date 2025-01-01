@@ -1,0 +1,103 @@
+﻿@model CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.DummyUserRole
+@{
+    ViewData["Title"] = "Create";
+    //Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "User Role Mapping form";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (TempData["failed"] != null)
+            {
+                <img src="~/images/failed.jpg" width="30" height="30">
+                <span style="color: red; font-size:large; " role="alert">
+                    @TempData["failed"]
+                </span>
+                <br />
+            }
+            @if (TempData["success"] != null)
+            {
+                <img src="~/images/ok.jpg" width="50" height="50">
+                <span style="color: green; font-size:large;" role="alert">
+                    @TempData["success"]
+                </span>
+                <br />
+            }
+
+            @using (Html.BeginForm("Create", "UserRole", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<form action="/UserRole/Create" method="post" class="form-material form-horizontal m-t-30" > *@
+
+                @Html.ValidationSummary(true)
+                @*<div class="row">
+                       <div class="col-md-3">
+                          <label class="col-sm-12">User</label>
+                           @Html.DropDownListFor(model => model.USER_ID , Model.DropDownListForUser,"Select a User", new { @class="form-control"})
+                       </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="col-sm-12">User</label>
+                         @Html.DropDownListFor(model => model.USER_ID, Model.DropDownListForUser, "Select a User", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="col-sm-12">Role</label>
+                        @Html.DropDownListFor(model => model.ROLE_ID, Model.DropDownListForRole, "Select a Role", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row" style="margin-top:1%">
+                    <div class="col-md-12 m-t-30">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+                        <button type="reset" class="btn btn-inverse waves-effect waves-light">Reset</button>
+                    </div>
+                </div>
+                <h4>To Show list of User Role mapping @Html.ActionLink("click here", "Index")</h4>
+                @*</form>*@
+            }
+
+
+        </div>
+    </div>
+</div>
+
+<script src="~/my_style/plugins/bower_components/jquery/dist/jquery.js"></script>
+<script src="~/my_style/bootstrap/dist/js/tether.js"></script>
+<script src="~/my_style/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/my_style/js/jasny-bootstrap.js"></script>
+<script src="~/my_style/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.js"></script>
+<script src="~/my_style/plugins/bower_components/sidebar-nav/dist/sidebar-nav.js"></script>
+<script src="~/my_style/js/jquery.slimscroll.js"></script>
+<script src="~/my_style/js/waves.js"></script>
+<script src="~/my_style/js/custom.js"></script>
+<script src="~/my_style/js/jquery-check-all.js"></script>
+<script src="~/my_style/plugins/bower_components/moment/moment.js"></script>
+<script src="~/my_style/plugins/bower_components/datatables/jquery.dataTables.js"></script>
+<script src="~/my_style/downloaded/js/dataTables.buttons.js"></script>
+
+<script src="~/my_style/downloaded/js/buttons.flash.js"></script>
+<script src="~/my_style/downloaded/js/jszip.js"></script>
+<script src="~/my_style/downloaded/js/pdfmake.js"></script>
+<script src="~/my_style/downloaded/js/vfs_fonts.js"></script>
+<script src="~/my_style/downloaded/js/buttons.html5.js"></script>
+<script src="~/my_style/downloaded/js/buttons.print.js"></script>
+<script src="~/my_style/plugins/bower_components/sweetalert/sweetalert.js"></script>
+<script src="~/my_style/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+<script src="~/my_style/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="~/my_style/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out3").addClass('collapse in');
+
+        $("#ur-id").addClass('active');
+    });
+</script>
+

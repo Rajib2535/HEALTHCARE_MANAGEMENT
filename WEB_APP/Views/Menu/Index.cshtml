@@ -1,0 +1,101 @@
+﻿@model IEnumerable<CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.MenuViewModel>
+@{
+    ViewBag.Title = "Menus";
+}
+
+
+
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large; " role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div class="table-responsive">
+            <table id="example5" class="table display table-condensed table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Menu Name
+</th>
+                        <th>
+                            Menu URL
+                        </th>
+                        <th>Priority</th>
+                        <th>
+                            Parent Menu
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th style="width: 60px;">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var status = "Active";}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Id)
+                            </td>
+                            <td> @Html.DisplayFor(modelItem=>item.MenuName)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Url)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.MenuOrder)
+                            </td>
+                            <td>
+                               @Html.DisplayFor(modelItem=>item.ParentMenuName)
+                            </td>
+                            <td>
+                                @if (@item.IsActive == true) { status = "Active"; } else { status = "Inactive"; }
+                                @status
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit" data-placement="top" href="Edit?id=@item.Id">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete" data-placement="top" href="Delete?id=@item.Id">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <h4 style="margin-left: 5px;">To Create New Menu @Html.ActionLink("click here", "Create")</h4>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#manual-in-out2").addClass('collapse in');
+            $("#manual-in-out4").addClass('collapse in');
+
+            $("#menu-id").addClass('active');
+        });
+    </script>
+}
+
+

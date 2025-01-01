@@ -1,0 +1,144 @@
+﻿@using Newtonsoft.Json;
+@using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels
+@using CORPORATE_DISBURSEMENT_UTILITY
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    string? role_wise_screen_permissions = HttpContextAccessor?.HttpContext?.Session.GetString("RoleWiseScreenPermission");
+    List<RoleWiseMenuViewModel>? roleWiseScreenPermissions = new();
+    if (!string.IsNullOrWhiteSpace(role_wise_screen_permissions))
+    {
+        roleWiseScreenPermissions = JsonConvert.DeserializeObject<List<RoleWiseMenuViewModel>>(role_wise_screen_permissions);
+    }
+
+    string? controller = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    string? action = Convert.ToString(ViewContext.RouteData.Values["Action"]);
+}
+
+<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="app-menu navbar-menu">
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        
+        <!-- Light Logo-->
+        <a href="@Url.Action("Dashboard","Home")" class="brand-link">
+            <img src="~/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light" style="color:white"> Healthcare</span>
+        </a>
+    </div>
+
+    <div id="scrollbar">
+        <div class="container-fluid">
+           
+
+            <ul class="navbar-nav" id="navbar-nav">
+                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                @if (roleWiseScreenPermissions != null && roleWiseScreenPermissions.Any())
+                {
+                    foreach (var item in roleWiseScreenPermissions)
+                    {
+                        if (item != null)
+                        {
+                            var parentActiveClass = string.Empty;
+                            var childActiveClass = string.Empty;
+                            var openListItemClass = string.Empty;
+
+                            // Check if the parent menu is active
+                            if (item.ControllerName?.ToLower() == controller?.ToLower())
+                            {
+                                parentActiveClass = "active";
+                                openListItemClass = "show"; // Ensure menu-dropdown is expanded for active item
+                            }
+                            else if (item.ChildMenuViewModels != null)
+                            {
+                                foreach (var childMenuItemActive in item.ChildMenuViewModels)
+                                {
+                                    if (childMenuItemActive.ControllerName?.ToLower() == controller?.ToLower())
+                                    {
+                                        parentActiveClass = "active";
+                                        openListItemClass = "show";
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // Render menu with children
+                            if (item.ChildMenuViewModels != null && item.ChildMenuViewModels.Any())
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link @parentActiveClass"
+                                       href="#menu-@item.MenuId"
+                                       data-bs-toggle="collapse"
+                                       role="button"
+                                       aria-expanded="@(openListItemClass == "show")"
+                                       aria-controls="menu-@item.MenuId">
+                                        <i class="ri-dashboard-2-line"></i>
+                                        <span data-key="t-@item.MenuName">@item.MenuName</span>
+                                    </a>
+                                    <div class="collapse menu-dropdown @openListItemClass" id="menu-@item.MenuId">
+                                        <ul class="nav nav-sm flex-column">
+                                            @foreach (var childItem in item.ChildMenuViewModels)
+                                            {
+                                                if (childItem != null)
+                                                {
+                                                    childActiveClass = (childItem.ControllerName?.ToLower() == controller?.ToLower() &&
+                                                    childItem.ActionName?.ToLower() == action?.ToLower())
+                                                    ? "active"
+                                                    : string.Empty;
+                                                    <li class="nav-item">
+                                                        <a href="@Url.Action(childItem.ActionName, childItem.ControllerName)"
+                                                           class="nav-link @childActiveClass"
+                                                           data-key="t-@childItem.MenuName">
+                                                            @childItem.MenuName
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                            // Render single menu item without children
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action(item.ActionName, item.ControllerName)"
+                                       class="nav-link menu-link @parentActiveClass"
+                                       data-key="t-@item.MenuName">
+                                        <i class="ri-dashboard-2-line"></i>
+                                        <span>@item.MenuName</span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="sidebar-background"></div>
+</div>

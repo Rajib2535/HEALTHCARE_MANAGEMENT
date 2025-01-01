@@ -1,0 +1,69 @@
+﻿@using DATA.Models
+@model             Role
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (TempData["failed"] != null)
+            {
+                <img src="~/images/failed.jpg" width="30" height="30">
+                <span style="color: red; font-size:large; " role="alert">
+                    @TempData["failed"]
+                </span>
+                <br />
+            }
+            @if (TempData["success"] != null)
+            {
+                <img src="~/images/ok.jpg" width="50" height="50">
+                <span style="color: green; font-size:large;" role="alert">
+                    @TempData["success"]
+                </span>
+                <br />
+            }
+            @using (Html.BeginForm("Create", "Role", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<form action="/Role/Create" method="post" class="form-material form-horizontal m-t-30"> *@
+                @Html.ValidationSummary(true)
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label class="col-sm-12">Role Title</label>
+                        @*@Html.EditorFor(model => model.NAME, new {@class = "form-control" })*@
+                        <input type="text" class="form-control" name="NAME" required="required">
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="col-sm-12">Description</label>
+                        <textarea class="form-control" name="DESCRIPTION" cols="60" rows="5"> </textarea>
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+                <div class="row" style="margin-top:1%">
+                    <div class="col-md-12 m-t-30">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+                        <button type="reset" class="btn btn-inverse waves-effect waves-light">Reset</button>
+                    </div>
+                </div>
+                <h4>To Show list of Role @Html.ActionLink("click here", "Index")</h4>
+            }
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out3").addClass('collapse in');
+
+    	$("#role-id").addClass('active');
+
+    });
+</script> 

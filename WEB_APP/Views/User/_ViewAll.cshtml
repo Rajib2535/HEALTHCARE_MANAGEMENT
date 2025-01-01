@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.UserInfoViewModel>
+
+
+
+
+<table class="table table-bordered table-hover table-condensed table-sm" id="userTable">
+    <thead class="thead-light">
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Userid)
+            </th>  
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+               @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                <a onclick="showInPopup('@Url.Action("AddOrEdit","User",new {id=0})','New Menu')" class="btn btn-success btn-sm text-white"><i class="fas fa-random"></i> New User</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Userid)
+                </td>                
+                
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobile)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateTime)
+                </td> 
+                <td>
+                    @if (item.StatusInput)
+                    {
+                        <label>Active</label>
+                    }
+                    else
+                    {
+                        <label>Inactive</label>
+                    }
+                </td>
+                <td>
+                    <div>
+                        <a onclick="showInPopup('@Url.Action("AddOrEdit","User",new {id=item.Id})','Update User')" class="btn btn-info btn-sm text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i>Deactivate</button>
+                        </form>
+                         <form asp-action="ResetPassword" asp-route-id="@item.Id" onsubmit="return jQueryAjaxResetPassword(this)" class="d-inline">
+                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-key"></i>Reset Password</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CORPORATE_DISBURSEMENT_UTILITY.APIConnectivityStatus>
+
+
+<table class="table table-bordered table-hover table-condensed table-sm" id="APIConnectivityListTable">
+    <thead class="thead-light">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.HostURL)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Identifier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Port)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+@*             <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string status_icon = string.Empty;
+            string status_color = string.Empty;
+            if (item.Status == true)
+            {
+                status_icon = "fa fa-check-circle";
+                status_color = "green";
+            }
+            else
+            {
+                status_icon = "fa fa-times-circle";
+                status_color = "red";
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HostURL)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Identifier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Port)
+                </td>
+                <td>
+                    <i style="color:@status_color" class="@status_icon"></i>
+                </td>
+@*                 <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,113 @@
+﻿@using DATA.Models
+@model Doctor
+
+@{
+    ViewBag.Title = "Edit Doctor";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (TempData["failed"] != null)
+            {
+                <img src="~/images/failed.jpg" width="30" height="30">
+                <span style="color: red; font-size:large;" role="alert">
+                    @TempData["failed"]
+                </span>
+                <br />
+            }
+            @if (TempData["success"] != null)
+            {
+                <img src="~/images/ok.jpg" width="50" height="50">
+                <span style="color: green; font-size:large;" role="alert">
+                    @TempData["success"]
+                </span>
+                <br />
+            }
+            @using (Html.BeginForm("Edit", "Doctor", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Name</label>
+                        <input type="text" class="form-control" name="Name" value="@Model.Name" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Email</label>
+                        <input type="email" class="form-control" name="Email" value="@Model.Email" />
+                    </div>
+                </div>
+
+                
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Phone Number</label>
+                        <input type="text" class="form-control" name="PhoneNumber" value="@Model.PhoneNumber" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Specialty</label>
+                        <input type="text" class="form-control" name="Specialty" value="@Model.Specialty" />
+                    </div>
+                </div>
+
+                
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Qualification</label>
+                        <input type="text" class="form-control" name="Qualification" value="@Model.Qualification" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Years of Experience</label>
+                        <input type="number" class="form-control" name="YearsOfExperience" value="@Model.YearsOfExperience" />
+                    </div>
+                </div>
+
+               
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Clinic Name</label>
+                        <input type="text" class="form-control" name="ClinicName" value="@Model.ClinicName" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12">Address</label>
+                        <textarea class="form-control" name="Address" rows="3">@Model.Address</textarea>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <label>Start Time</label>
+                        @Html.TextBox("StartTime", null, new { @class = "form-control", placeholder = "Enter Start Time", type = "time", required = "required" })
+                    </div>
+                    <div class="col-sm-6">
+                        <label>End Time</label>
+                        @Html.TextBox("EndTime", null, new { @class = "form-control", placeholder = "Enter End Time", type = "time", required = "required" })
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:1%">
+                    <div class="col-md-12 m-t-30">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Update</button>
+                    </div>
+                </div>
+            }
+            <br />
+            <h4>
+                @Html.ActionLink("Back to List", "Index")
+            </h4>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#doctor-id").addClass('active');
+    });
+</script>

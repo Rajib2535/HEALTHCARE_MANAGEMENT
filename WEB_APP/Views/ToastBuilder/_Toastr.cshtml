@@ -1,0 +1,46 @@
+﻿@using Newtonsoft.Json
+@using WEB_APP.Models
+
+@functions {
+    void ShowToastMessages(Toastr? toastr)
+    {
+        if (toastr != null)
+        {
+            <script>
+                $(document).ready(function () {
+                    toastr.options.closeButton = '@toastr.ShowCloseButton';
+                    toastr.options.newestOnTop = '@toastr.ShowNewestOnTop';
+                    toastr.options.progressBar = true;
+                    toastr.options.positionClass = 'toast-top-right';
+                    toastr.options.timeOut = '5000';
+                    toastr.options.showEasing = 'swing';
+                    toastr.options.hideEasing = 'linear';
+                    toastr.options.showMethod = 'fadeIn';
+                    toastr.options.hideMethod = 'fadeOut';
+                    // toastr.options.escapeHTML= false;
+                    //toastr.options.html = true;
+
+                    @foreach (ToastMessage message in toastr.ToastMessages)
+                    {
+                        string toastTypeValue = message.ToastType.ToString("F").ToLower();
+                        @:var optionsOverride = { /* Add message specific options here */ };
+                        if (message.IsSticky)
+                        {
+                            @:optionsOverride.timeOut = 0;
+                            @:optionsOverride.extendedTimeout = 0;
+                            @:optionsOverride.progressBar = false;
+                        }
+                        @:toastr['@toastTypeValue']('@message.Message', '@message.Title', optionsOverride);
+                    }
+                });
+            </script>
+        }
+    }
+}
+
+@if (TempData != null && TempData.ContainsKey("Toastr"))
+{
+    Toastr? toastr = JsonConvert.DeserializeObject<Toastr?>(TempData["Toastr"]?.ToString());
+    //oastr? toastr = TempData["Toastr"] as Toastr;
+    ShowToastMessages(toastr);
+}

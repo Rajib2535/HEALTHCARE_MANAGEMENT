@@ -1,0 +1,69 @@
+﻿@using DATA.Models
+@model             Role
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (TempData["failed"] != null)
+            {
+                <img src="~/images/failed.jpg" width="30" height="30">
+                <span style="color: red; font-size:large; " role="alert">
+                    @TempData["failed"]
+                </span>
+                <br />
+            }
+            @if (TempData["success"] != null)
+            {
+                <img src="~/images/ok.jpg" width="50" height="50">
+                <span style="color: green; font-size:large;" role="alert">
+                    @TempData["success"]
+                </span>
+                <br />
+            }
+            @using (Html.BeginForm("Details", "Role", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<form action="#" method="post" class="form-material form-horizontal m-t-30"> *@
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label class="col-sm-12">Role Title</label>
+                        <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Name)" readonly="readonly">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label class="col-sm-12">Description</label>
+                        <textarea class="form-control" cols=" 45" rows="5" readonly="readonly">@Html.DisplayFor(model => model.Description)</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label class="col-sm-12">Status</label>
+                        @{var status = "";}
+                        @if (@Model.IsActive == true) { status = "Active"; } else { status = "Inactive"; }
+                        <input type="text" class="form-control" value="@status" readonly="readonly">
+                    </div>
+                </div>
+            }
+            @*</form>*@
+            <br />
+            <h4>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+                @Html.ActionLink("Back to List", "Index")
+            </h4>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out3").addClass('collapse in');
+
+        $("#role-id").addClass('active');
+    });
+</script>

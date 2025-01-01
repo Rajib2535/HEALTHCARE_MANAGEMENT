@@ -1,0 +1,96 @@
+﻿@using DATA.Models
+@model Patient
+@{
+    ViewBag.Title = "Create Patient";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @if (TempData["failed"] != null)
+            {
+                <img src="~/images/failed.jpg" width="30" height="30" />
+                <span style="color: red; font-size:large;" role="alert">
+                    @TempData["failed"]
+                </span>
+                <br />
+            }
+            @if (TempData["success"] != null)
+            {
+                <img src="~/images/ok.jpg" width="50" height="50" />
+                <span style="color: green; font-size:large;" role="alert">
+                    @TempData["success"]
+                </span>
+                <br />
+            }
+            @using (Html.BeginForm("Create", "Patient", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Patient Name</label>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter Patient Name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Email</label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter Email", type = "email" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Phone Number</label>
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Enter Phone Number", type = "tel" })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Age</label>
+                        @Html.TextBoxFor(model => model.Age, new { @class = "form-control", placeholder = "Enter Age", type = "number" })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Weight</label>
+                        @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", placeholder = "Enter Weight (kg)" })
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Gender</label>
+                        @Html.TextBoxFor(model => model.Gender, new { @class = "form-control", placeholder = "Enter Gender" })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Address</label>
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1%">
+                    <div class="col-md-12 m-t-30">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+                        <button type="reset" class="btn btn-inverse waves-effect waves-light">Reset</button>
+                    </div>
+                </div>
+                <h4>To Show List of Patients @Html.ActionLink("click here", "Index")</h4>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out3").addClass('collapse in');
+        $("#patient-id").addClass('active');
+    });
+</script>

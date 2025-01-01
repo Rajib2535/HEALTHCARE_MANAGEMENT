@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.UserInfoViewModel>
+@{
+    ViewBag.Title = "Users";
+}
+<style>
+    .modal-dialog {
+        max-width: 60% !important;
+    }
+</style>
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large; " role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div id="view-all">
+            @await Html.PartialAsync("_ViewAll", Model)
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @{
+        await Html.PartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml");
+    }
+    <script src="~/js/CustomScripts/User.js"></script>
+    <script>
+        function activatejQueryTable() {
+            $("#userTable").DataTable({
+                "order": [],
+                "responsive": true, "lengthChange": true, "autoWidth": false
+            }).buttons().container().appendTo('#userTable_wrapper .col-md-6:eq(0)');
+        }
+        $(function () {
+            activatejQueryTable();
+        });
+    </script>
+}
+
+

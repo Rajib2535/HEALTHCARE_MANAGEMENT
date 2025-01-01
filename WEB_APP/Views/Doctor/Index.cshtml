@@ -1,0 +1,79 @@
+﻿@using DATA.Models
+@model IEnumerable<Doctor>
+@{
+    ViewBag.Title = "Doctors";
+}
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large;" role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div class="table-responsive">
+            <table id="example5" class="table display table-condensed table-sm">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Specialty</th>
+                        <th>Years of Experience</th>
+                        <th>Clinic Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th style="width: 60px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doctor in Model)
+                    {
+                        <tr>
+                            <td>@doctor.Name</td>
+                            <td>@doctor.Email</td>
+                            <td>@doctor.PhoneNumber</td>
+                            <td>@doctor.Specialty</td>
+                            <td>@(doctor.YearsOfExperience.HasValue ? doctor.YearsOfExperience.ToString() : "N/A")</td>
+                            <td>@doctor.ClinicName</td>
+                            <td>@doctor.StartTime</td>
+                            <td>@doctor.EndTime</td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit" data-placement="top" href="Edit?id=@doctor.Id">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete" data-placement="top" href="Delete?id=@doctor.Id">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <h4 style="margin-left: 5px;">To Create New Doctor @Html.ActionLink("click here", "Create")</h4>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#manual-in-out2").addClass('collapse in');
+            $("#manual-in-out3").addClass('collapse in');
+
+            $("#doctor-id").addClass('active');
+        });
+    </script>
+}
+

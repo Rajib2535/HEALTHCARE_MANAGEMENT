@@ -1,0 +1,57 @@
+﻿@model CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels.DataObjectsForRolePermission
+@{
+    ViewData["Title"] = "Role Permission Form";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            @using (Html.BeginForm("Create", "RolePermission", FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "form-material form-horizontal m-t-30" }))
+            {
+                @Html.AntiForgeryToken()
+                @*<form action="/RolePermission/Create" method="post" class="form-material form-horizontal m-t-30"> *@
+                @Html.ValidationSummary(true)
+                @*@Html.HiddenFor(model => model.role.ID)*@
+                <input type="hidden" name="rolePermission.RoleId" value="@Html.DisplayFor(model => model.role.Id)">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label class="col-sm-12">Role</label>
+                        <input type="text" class="form-control" value="@Html.DisplayFor(model => model.role.Name)" readonly="readonly">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-sm-12">Permission</label>
+                        @*@Html.ListBoxFor(model => model.rolePermission.SelectedValues , Model.rolePermission.DropDownListForPermission, new { @class="form-control"})*@
+                        @foreach (var data in Model.rolePermission.DropDownListForPermission)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="rolePermission.SelectedValues" class="form" value="@data.Value" @{if (data.Selected) { <text> checked</text> }}> </td>
+                                <td><label class="col-sm-9">@data.Text </label> </td>
+                                <br />
+                            </tr>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 m-t-30">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Assign</button>
+                    </div>
+                </div>
+                <h4>To Show list of Role Permission mapping @Html.ActionLink("click here", "Index")</h4>
+                @*</form>*@
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#manual-in-out2").addClass('collapse in');
+        $("#manual-in-out4").addClass('collapse in');
+
+        $("#rp-id").addClass('active');
+    });
+</script>
+

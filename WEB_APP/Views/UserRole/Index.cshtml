@@ -1,0 +1,95 @@
+﻿@using DATA.Models
+@model IEnumerable<UserRole>
+
+@{
+    ViewData["Title"] = "User Role mapping list";
+    //Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+
+
+<div class="col-sm-12">
+    <div class="white-box">
+        @if (TempData["failed"] != null)
+        {
+            <img src="~/images/failed.jpg" width="30" height="30">
+            <span style="color: red; font-size:large; " role="alert">
+                @TempData["failed"]
+            </span>
+            <br />
+        }
+        @if (TempData["success"] != null)
+        {
+            <img src="~/images/ok.jpg" width="50" height="50">
+            <span style="color: green; font-size:large;" role="alert">
+                @TempData["success"]
+            </span>
+            <br />
+        }
+        <div class="table-responsive">
+            <table id="example5" class="table display table-condensed table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th style="width: 60px;">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Id)
+                                @*@Html.ActionLink(@item.Id.ToString(), "Details", new { id = item.Id })*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.User.Name)
+                                @*@Html.ActionLink(@item.User.Name, "Details", new { id = item.Id })*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Role.Name)
+                               @* @Html.ActionLink(@item.Role.Name, "Details", new { id = item.Id })*@
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit" data-placement="top" href="@Url.Action("Edit", "UserRole", new { id = item.Id })">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit" data-placement="top" href="@Url.Action("Delete", "UserRole", new { id = item.Id })">
+                                    <span class="fa fa-edit"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+            <br />
+            <h4 style="margin-left: 5px;">To Create New User Role Mapping @Html.ActionLink("click here", "Create")</h4>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#manual-in-out2").addClass('collapse in');
+            $("#manual-in-out3").addClass('collapse in');
+
+            $("#ur-id").addClass('active');
+        });
+    </script>
+}
+
+

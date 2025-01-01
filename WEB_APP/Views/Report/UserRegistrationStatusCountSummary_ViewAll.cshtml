@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ReportModels.StatusWiseUserCount>
+
+<div class="row">
+    @foreach (var item in Model.Select((value, index) => new { value, index }))
+    {
+        var bgColor = item.value.Status == "Approved" ? "bg-success" :
+        item.value.Status == "Unapproved" ? "bg-danger" :
+        item.value.Status == "New" ? "bg-warning" : "bg-secondary";
+
+        <div class="col-md-4">
+            <div class="card mb-3 @bgColor text-white">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <strong>Status:</strong> @Html.DisplayFor(modelItem => item.value.Status)
+                    </h5>
+                    <p class="card-text">
+                        <strong>Count:</strong> @Html.DisplayFor(modelItem => item.value.Count)
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

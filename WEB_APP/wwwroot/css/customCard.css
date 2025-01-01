@@ -1,0 +1,5 @@
+﻿
+
+.card-primary:not(.card-outline) > .card-header {
+    background-color: #405189;
+}

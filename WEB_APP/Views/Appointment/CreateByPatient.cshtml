@@ -1,0 +1,42 @@
+﻿@using DATA.Models
+@model Appointment
+
+<h2>Create Appointment</h2>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <!-- Doctor Selection -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="DoctorId">Doctor</label>
+                @Html.DropDownList("DoctorId", ViewBag.Doctors as SelectList, "Select Doctor", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <!-- Appointment Date -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AppointmentDate">Appointment Date</label>
+                @Html.TextBoxFor(m => m.AppointmentDate, "{0:yyyy-MM-ddTHH:mm}", new { @type = "datetime-local", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Notes">Notes</label>
+                @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", rows = 4 })
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+}
+

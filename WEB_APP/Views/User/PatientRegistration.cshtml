@@ -1,0 +1,138 @@
+﻿@using DATA.Models.ViewModels
+@model PatientRegistrationViewModel
+
+@{
+    ViewBag.Title = "Patient Registration";
+}
+
+<div class="container">
+    <h2>Patient Registration</h2>
+    <hr />
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error"]
+        </div>
+    }
+
+    @using (Html.BeginForm("PatientRegistration", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label">Username</label>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Enter Username", required = "required" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Password</label>
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Full Name</label>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter Full Name" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter Email", type = "email" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Mobile" class="control-label">Mobile</label>
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "Enter Mobile Number", type = "tel" })
+                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Age" class="control-label">Age</label>
+                    @Html.TextBoxFor(model => model.Age, new { @class = "form-control", placeholder = "Enter Age", type = "number" })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Weight" class="control-label">Weight</label>
+                    @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", placeholder = "Enter Weight (kg)", type = "number", step = "0.1" })
+                    @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Gender" class="control-label">Gender</label>
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(new[] { "Male", "Female", "Other" }), "Select Gender", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label">Address</label>
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="MedicalHistory" class="control-label">Medical History</label>
+                    @Html.TextAreaFor(model => model.MedicalHistory, new { @class = "form-control", placeholder = "Enter Medical History", rows = 3 })
+                    @Html.ValidationMessageFor(model => model.MedicalHistory, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EmergencyContactName" class="control-label">Emergency Contact Name</label>
+                    @Html.TextBoxFor(model => model.EmergencyContactName, new { @class = "form-control", placeholder = "Enter Emergency Contact Name" })
+                    @Html.ValidationMessageFor(model => model.EmergencyContactName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EmergencyContactPhone" class="control-label">Emergency Contact Phone</label>
+                    @Html.TextBoxFor(model => model.EmergencyContactPhone, new { @class = "form-control", placeholder = "Enter Emergency Contact Phone", type = "tel" })
+                    @Html.ValidationMessageFor(model => model.EmergencyContactPhone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Login" class="btn btn-secondary">Cancel</a>
+        </div>
+    }
+</div>
