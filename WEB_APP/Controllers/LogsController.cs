@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
-using CORPORATE_DISBURSEMENT_ADMIN.Extensions;
 using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
 using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
 using System.Configuration;
@@ -13,6 +12,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Serilog;
 using ILogger = Serilog.ILogger;
 using System.Net;
+using WEB_APP.Extensions;
 
 namespace WEB_APP.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+﻿namespace WEB_APP.Extensions
 {
     /// <summary>
     /// base64 image conversion class

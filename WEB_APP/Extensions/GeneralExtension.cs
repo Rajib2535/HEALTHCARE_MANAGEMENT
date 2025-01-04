@@ -3,7 +3,7 @@ using ClosedXML.Excel;
 using System.Data;
 using System.Reflection;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     public static class GeneralExtension
     {

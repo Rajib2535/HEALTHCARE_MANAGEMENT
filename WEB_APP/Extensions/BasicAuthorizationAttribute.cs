@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN
+namespace WEB_APP.Extensions
 {
     public sealed class BasicAuthorizationAttribute : Attribute, IAsyncAuthorizationFilter
     {
@@ -47,8 +47,8 @@ namespace CORPORATE_DISBURSEMENT_ADMIN
                         bool user_status = user.Status ?? false;
                         if (user_status)
                         {
-                            string? secretKey = _configuration.GetValue<string>("application_configuration:secret_hash_key");
-                            string? decryptedPassword = AESEncryption.DecryptString(secretKey ?? string.Empty, user.Password ?? String.Empty);
+                            string secretKey = _configuration.GetValue<string>("application_configuration:secret_hash_key");
+                            string decryptedPassword = AESEncryption.DecryptString(secretKey ?? string.Empty, user.Password ?? string.Empty);
                             if (decryptedPassword != password)
                             {
                                 commonResponse = await _commonManager.HandleResponse((int)HttpStatusCode.Unauthorized, CommonEnum.API_Response_Codes.Unauthorized, commonResponse);
@@ -62,7 +62,7 @@ namespace CORPORATE_DISBURSEMENT_ADMIN
                         }
                         else
                         {
-                            commonResponse = _commonManager.HandleResponse((int)HttpStatusCode.Unauthorized, CommonEnum.API_Response_Codes.Unauthorized, commonResponse, String.Empty, "User is inactive").Result;
+                            commonResponse = _commonManager.HandleResponse((int)HttpStatusCode.Unauthorized, CommonEnum.API_Response_Codes.Unauthorized, commonResponse, string.Empty, "User is inactive").Result;
                             // set 'WWW-Authenticate' header to trigger login popup in browsers
                             context.Result = new JsonResult(commonResponse) { StatusCode = StatusCodes.Status401Unauthorized };
                         }

@@ -1,13 +1,12 @@
 ﻿using COMMON_SERVICE.Interface;
 using COMMON_SERVICE.Service;
-
 using CORPORATE_DISBURSEMENT_UTILITY;
 using DATA.Interface;
 using DATA.Repository;
 using SERVICE.Interface;
 using SERVICE.Manager;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     /// <summary>
     /// service extension for normalizing dependency injection
@@ -16,17 +15,17 @@ namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
     {
         public static IServiceCollection AddActionModuleServices(this IServiceCollection services)
         {
-     
+
             services.AddScoped<ICommonRepository, CommonRepository>();
             services.AddScoped<ICommonService, CommonService>();
-            
+
             services.AddScoped<IHttpClientExtensions, HttpClientExtensions>();
-           
+
             services.AddScoped<IDashboardManager, DashboardManager>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
-            
-            
-     
+
+
+
             services.AddScoped<ICommonDropdownRepository, CommonDropdownRepository>();
             services.AddScoped<ICommonDropdownManager, CommonDropdownManager>();
 

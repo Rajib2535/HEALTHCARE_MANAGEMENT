@@ -4,7 +4,7 @@ using SERVICE.Interface;
 using System.Net;
 using ILogger = Serilog.ILogger;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     /// <summary>
     /// This class is used for checking the session variables.

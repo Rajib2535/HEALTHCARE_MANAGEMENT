@@ -122,17 +122,54 @@ namespace WEB_APP.Controllers
             return View(doctor);
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task< IActionResult> Edit(int id, Doctor doctor)
+        //{
+        //    if (id != doctor.Id || !ModelState.IsValid)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    await _service.UpdateDoctor(doctor);
+        //    return RedirectToAction(nameof(Index));
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> Edit(int id, Doctor doctor)
+        public async Task<IActionResult> Edit(int id, Doctor doctor)
         {
-            if (id != doctor.Id || !ModelState.IsValid)
+            if (id != doctor.Id)
             {
-                return BadRequest();
+                TempData["failed"] = "Invalid doctor ID.";
+                return RedirectToAction(nameof(Edit), new { id });
             }
-            await _service.UpdateDoctor(doctor);
+
+            if (!ModelState.IsValid)
+            {
+                TempData["failed"] = "Validation failed. Please correct the errors.";
+                return View(doctor); // Return the view with the current model to show validation errors
+            }
+
+            try
+            {
+                var result = await _service.UpdateDoctor(doctor);
+
+                if (result) // Assume the service returns a boolean indicating success
+                {
+                    TempData["success"] = "Doctor details updated successfully.";
+                }
+                else
+                {
+                    TempData["failed"] = "Failed to update doctor details.";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["failed"] = $"An error occurred: {ex.Message}";
+            }
+
             return RedirectToAction(nameof(Index));
         }
+
 
         public async Task<IActionResult> Delete(int id)
         {

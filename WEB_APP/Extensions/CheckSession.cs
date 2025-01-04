@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using SERVICE.Interface;
 using System.Net;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     /// <summary>
     /// checking session for ajax requests

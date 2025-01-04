@@ -6,7 +6,7 @@ using SERVICE.Interface;
 using System.Net;
 using ILogger = Serilog.ILogger;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     /// <summary>
     /// this class is used for checking whether the user has permission on the current page or not

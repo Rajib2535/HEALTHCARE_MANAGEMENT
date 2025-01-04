@@ -84,11 +84,11 @@
 
                     <div class="col-sm-6">
                         <label>Start Time</label>
-                        @Html.TextBox("StartTime", null, new { @class = "form-control", placeholder = "Enter Start Time", type = "time", required = "required" })
+                        @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", type = "time", required = "required" })
                     </div>
                     <div class="col-sm-6">
                         <label>End Time</label>
-                        @Html.TextBox("EndTime", null, new { @class = "form-control", placeholder = "Enter End Time", type = "time", required = "required" })
+                        @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control", type = "time", required = "required" })
                     </div>
                 </div>
 

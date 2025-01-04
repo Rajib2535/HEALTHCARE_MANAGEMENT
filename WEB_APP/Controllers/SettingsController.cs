@@ -5,7 +5,6 @@ using ILogger = Serilog.ILogger;
 using CORPORATE_DISBURSEMENT_UTILITY;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
-using CORPORATE_DISBURSEMENT_ADMIN.Extensions;
 using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
 using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
 using System.Runtime.CompilerServices;
@@ -13,6 +12,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using DATA.Interface;
 using SERVICE.Interface;
+using WEB_APP.Extensions;
 
 namespace WEB_APP.Controllers
 {

@@ -2,7 +2,7 @@
 using Serilog.Context;
 
 
-namespace CORPORATE_DISBURSEMENT_ADMIN.Extensions
+namespace WEB_APP.Extensions
 {
     public class LogEnrichMiddleware
     {

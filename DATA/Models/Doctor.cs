@@ -27,7 +27,7 @@ public partial class Doctor
 
     public DateTime? UpdatedAt { get; set; }
 
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
 
     public TimeOnly? StartTime { get; set; }
 
