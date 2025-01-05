@@ -1,24 +1,209 @@
-﻿@using DATA.Models
+﻿@* 
+ @using DATA.Models
 @model Appointment
 
 <h2>Edit Appointment</h2>
 @using (Html.BeginForm())
 {
     <div class="form-group">
-        <label for="PatientId">Patient</label>
-        @Html.DropDownList("PatientId", ViewBag.Patients as SelectList, "Select Patient", new { @class = "form-control" })
+     
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Patient Name</label>
+                @if (ViewBag.IsDoctor != null && (bool)ViewBag.IsDoctor)
+                {
+                    @Html.DropDownList(
+                             "PatientId",
+                             ViewBag.Patients as SelectList,
+                             new { @class = "form-control", @disabled = "disabled" }
+                             )
+                    <input type="hidden" name="PatientId" value="@Model.PatientId" />
+                }
+                else
+                {
+                    @Html.DropDownList(
+                             "PatientId",
+                             ViewBag.Patients as SelectList,
+                             "Select Patient",
+                             new { @class = "form-control" }
+                             )
+                }
+            </div>
+            <div class="col-sm-6">
+                <label>Doctor</label>
+                @if (ViewBag.IsDoctor != null && (bool)ViewBag.IsDoctor)
+                {
+                    @Html.DropDownList(
+                             "DoctorId",
+                             ViewBag.Doctors as SelectList,
+                             new { @class = "form-control", @disabled = "disabled" }
+                             )
+                    <input type="hidden" name="DoctorId" value="@Model.DoctorId" />
+                }
+                else
+                {
+                    @Html.DropDownList(
+                             "DoctorId",
+                             ViewBag.Doctors as SelectList,
+                             "Select Doctor",
+                             new { @class = "form-control" }
+                             )
+                }
+            </div>
+        </div>
     </div>
+
+  
     <div class="form-group">
-        <label for="DoctorId">Doctor</label>
-        @Html.DropDownList("DoctorId", ViewBag.Doctors as SelectList, "Select Doctor", new { @class = "form-control" })
+       
+        <div class="row">
+           
+            <div class="col-sm-6">
+                <label>Date</label>
+                @Html.TextBoxFor(
+                         m => m.AppointmentDate,
+                         "{0:yyyy-MM-ddTHH:mm}",
+                         new { @type = "datetime-local", @class = "form-control" }
+                         )
+            </div>
+            <div class="col-sm-6">
+                <label>tatus</label>
+                @Html.DropDownListFor(
+                         m => m.Status,
+                         new SelectList(
+                         new[] {
+            new { Value = "false", Text = "Pending" },
+            new { Value = "true", Text = "Done" }
+            },
+                         "Value", "Text", Model.Status.ToString()
+                         ),
+                         "Select Status",
+                         new { @class = "form-control" }
+                         )
+            </div>
+        </div>
     </div>
+
     <div class="form-group">
-        <label for="AppointmentDate">Appointment Date</label>
-        @Html.TextBoxFor(m => m.AppointmentDate, "{0:yyyy-MM-ddTHH:mm}", new { @type = "datetime-local", @class = "form-control" })
+        
+        <div class="row">
+           
+            <div>
+                <label>Patient Problem</label>
+                @Html.TextAreaFor(
+                         m => m.Notes,
+                         new { @class = "form-control", rows = 3 }
+                         )
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="Notes">Notes</label>
-        @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", rows = 4 })
-    </div>
+
+   
+
     <button type="submit" class="btn btn-primary">Submit</button>
+}
+ *@
+@using DATA.Models
+@model Appointment
+
+<h2>Edit Appointment</h2>
+
+@using (Html.BeginForm("Edit", "Appointment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        <div class="form-group">
+        @Html.HiddenFor(model => model.Id)    
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Patient Name</label>
+                @if (ViewBag.IsDoctor != null && (bool)ViewBag.IsDoctor)
+                {
+                    @Html.DropDownList(
+                                 "PatientId",
+                                 ViewBag.Patients as SelectList,
+                                 new { @class = "form-control", @disabled = "disabled" })
+                            <input type="hidden" name="PatientId" value="@Model.PatientId" />
+                }
+                else
+                {
+                    @Html.DropDownList(
+                                 "PatientId",
+                                 ViewBag.Patients as SelectList,
+                                 "Select Patient",
+                                 new { @class = "form-control" })
+                }
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Doctor</label>
+                @if (ViewBag.IsDoctor != null && (bool)ViewBag.IsDoctor)
+                {
+                    @Html.DropDownList(
+                                 "DoctorId",
+                                 ViewBag.Doctors as SelectList,
+                                 new { @class = "form-control", @disabled = "disabled" })
+                            <input type="hidden" name="DoctorId" value="@Model.DoctorId" />
+                }
+                else
+                {
+                    @Html.DropDownList(
+                                 "DoctorId",
+                                 ViewBag.Doctors as SelectList,
+                                 "Select Doctor",
+                                 new { @class = "form-control" })
+                }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Date</label>
+                @Html.TextBoxFor(
+                             m => m.AppointmentDate,
+                             "{0:yyyy-MM-ddTHH:mm}",
+                             new { @type = "datetime-local", @class = "form-control" })
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Status</label>
+                @Html.DropDownListFor(
+                             m => m.Status,
+                             new SelectList(
+                                 new[] {
+                            new { Value = "false", Text = "Pending" },
+                            new { Value = "true", Text = "Done" }
+                        },
+                                 "Value", "Text", Model.Status.ToString()),
+                             "Select Status",
+                             new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div>
+                    <label>Patient Problem</label>
+                @Html.TextAreaFor(
+                             m => m.Notes,
+                             new { @class = "form-control", rows = 3 })
+                </div>
+            </div>
+        </div>
+
+           <div class="form-group">
+        <label>Upload Image</label>
+        <input type="file" name="AppointmentImage" class="form-control" accept="image/*" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.FilePath))
+    {
+                <div class="form-group">
+                    <label>Uploaded Image</label>
+                    <img src="@Url.Content(Model.FilePath)" alt="Appointment Image" class="img-thumbnail" style="max-width: 200px;" />
+                </div>
+    }
+
+        <button type="submit" class="btn btn-primary">Submit</button>
 }

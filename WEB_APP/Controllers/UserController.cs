@@ -171,6 +171,7 @@ namespace WEB_APP.Controllers
                         Password = model.Password,
                         Status = true,
                         IsPasswordReset = false,
+                        StatusInput=true,
                         CreateTime = DateTime.Now,
                     };
                     var result = await _UserManager.AddUser(userInfoViewModel);

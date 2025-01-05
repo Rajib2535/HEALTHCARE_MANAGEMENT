@@ -55,10 +55,6 @@ public partial class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "PatientId");
 
             entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
-            entity.Property(e => e.AppointmentStatus)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasDefaultValueSql("'Scheduled'");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime");

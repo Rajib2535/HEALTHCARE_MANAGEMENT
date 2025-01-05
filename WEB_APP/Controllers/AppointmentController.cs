@@ -1,4 +1,7 @@
 ﻿using DATA.Models;
+using DATA.Models.ViewModels;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +38,7 @@ namespace WEB_APP.Controllers
         {
             try
             {
+                List<Appointment> appointments=new List<Appointment>();
                 var userId = _httpContextAccessor.HttpContext.Session.GetString("user_id");
 
                 if (string.IsNullOrEmpty(userId))
@@ -45,9 +49,12 @@ namespace WEB_APP.Controllers
                     .FirstOrDefaultAsync();
 
                 if (patientInfo == null)
-                    return NotFound("Patient information not found.");
+                {
+                    return View(appointments);
+                }
+                   
 
-                var appointments = await _context.Appointments
+                appointments = await _context.Appointments
                     .Where(x => x.PatientId == patientInfo.Id).Include(x=>x.Doctor).Include(x=>x.Patient)
                     .ToListAsync();
 
@@ -64,9 +71,20 @@ namespace WEB_APP.Controllers
         public async Task<IActionResult> DoctorAppointment()
         {
             var userId = _httpContextAccessor.HttpContext.Session.GetString("user_id");
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction("Login", "User");
 
-            var patients = await _context.Appointments.Where(x => x.DoctorId == Convert.ToInt32(userId)).ToListAsync();
-            return View(patients);
+            var doctorInfo = await _context.Doctors
+                    .Where(x => x.UserId == Convert.ToInt32(userId))
+                    .FirstOrDefaultAsync();
+
+            if (doctorInfo == null)
+                return NotFound("Doctor information not found.");
+
+            var appointments = await _context.Appointments
+                   .Where(x => x.DoctorId == doctorInfo.Id).Include(x => x.Doctor).Include(x => x.Patient)
+                   .ToListAsync();
+            return View(appointments);
         }
 
         // GET: Appointment/Create
@@ -129,33 +147,63 @@ namespace WEB_APP.Controllers
         }
 
 
-        // GET: Appointment/Edit/5
+        //GET: Appointment/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
 
             var appointment = await _context.Appointments.FindAsync(id);
             if (appointment == null) return NotFound();
+            string role_name = _httpContextAccessor.HttpContext.Session.GetString("RoleName");
+            if (role_name.ToLower().ToString() == "doctor")
+            {
+                ViewBag.IsDoctor = true;
+            }
+
 
             ViewBag.Patients = new SelectList(_context.Patients, "Id", "Name", appointment.PatientId);
             ViewBag.Doctors = new SelectList(_context.Doctors, "Id", "Name", appointment.DoctorId);
             return View(appointment);
         }
+        
 
-        // POST: Appointment/Edit/5
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Appointment appointment)
+        public async Task<IActionResult> Edit(int id, Appointment appointment, IFormFile AppointmentImage)
         {
-            if (id != appointment.Id) return NotFound();
+            if (id != appointment.Id)
+                return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (AppointmentImage != null && AppointmentImage.Length > 0)
+                    {
+                        var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Prescription");
+
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        var fileName = Path.GetFileName(AppointmentImage.FileName);
+                        var filePath = Path.Combine(uploadPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await AppointmentImage.CopyToAsync(stream);
+                        }
+
+                        appointment.FilePath = "/Prescription/" + fileName;
+                    }
+
                     appointment.UpdatedAt = DateTime.Now;
                     _context.Update(appointment);
                     await _context.SaveChangesAsync();
+
                     TempData["success"] = "Appointment updated successfully.";
                 }
                 catch (DbUpdateConcurrencyException)
@@ -165,12 +213,36 @@ namespace WEB_APP.Controllers
                     else
                         throw;
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(DoctorAppointment));
             }
 
             ViewBag.Patients = new SelectList(_context.Patients, "Id", "Name", appointment.PatientId);
             ViewBag.Doctors = new SelectList(_context.Doctors, "Id", "Name", appointment.DoctorId);
+
             return View(appointment);
+        }
+        [HttpGet]
+        public async Task<IActionResult> MedicalHistory(int id)
+        {
+            
+                var prescriptions = await _context.Appointments
+                    .Where(a => a.PatientId == id)
+                    .Select(a => new
+                    {
+                        a.Id,
+                        a.FilePath
+                    })
+                    .ToListAsync();
+
+                var model = prescriptions.Select(img => new MedicalHistoryViewModel
+                {
+                    Id = img.Id,
+                    ImageUrl = img.FilePath
+                }).ToList();
+
+                return View(model);
+            
         }
 
         // GET: Appointment/Delete/5

@@ -1,0 +1,16 @@
+﻿@using DATA.Models.ViewModels
+@model IEnumerable<MedicalHistoryViewModel>
+
+<h2>Medical Record</h2>
+
+<div class="row">
+    @foreach (var image in Model)
+    {
+        <div class="col-md-3">
+            <div class="card">
+                <img src="@Url.Content(image.ImageUrl)" class="card-img-top" alt="Patient Record" />
+               
+            </div>
+        </div>
+    }
+</div>

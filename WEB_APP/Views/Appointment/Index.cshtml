@@ -23,7 +23,9 @@
                 <td>@appointment.Patient.Name</td>
                 <td>@appointment.Doctor.Name</td>
                 <td>@appointment.AppointmentDate.ToString("g")</td>
-                <td>@appointment.AppointmentStatus</td>
+                <td>
+                    @(appointment.Status ? "Done" : "Pending")
+                </td>
                 <td>
                     <a href="@Url.Action("Edit", new { id = appointment.Id })" class="btn btn-sm btn-primary">Edit</a>
                     <a href="@Url.Action("Delete", new { id = appointment.Id })" class="btn btn-sm btn-danger">Delete</a>

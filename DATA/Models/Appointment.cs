@@ -13,13 +13,14 @@ public partial class Appointment
 
     public DateTime AppointmentDate { get; set; }
 
-    public string AppointmentStatus { get; set; }
-
     public string Notes { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
+
+    public bool Status { get; set; }
+    public string FilePath { get; set; }
 
     public virtual Doctor Doctor { get; set; }
 
