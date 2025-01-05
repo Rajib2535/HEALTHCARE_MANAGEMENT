@@ -27,13 +27,7 @@ namespace WEB_APP.Controllers
                 .ToList();
             return View(appointments);
         }
-        //public async Task<IActionResult> PatientAppointment()
-        //{
-        //    var userId = _httpContextAccessor.HttpContext.Session.GetString("user_id");
-        //    var patientInfo = await _context.Patients.Where(x => x.UserId == Convert.ToInt32(userId)).FirstOrDefaultAsync();
-        //    var appointment = await _context.Appointments.Where(x =>x.PatientId == patientInfo.Id).ToListAsync();
-        //    return View(appointment);
-        //}
+
         public async Task<IActionResult> PatientAppointment()
         {
             try
@@ -70,6 +64,7 @@ namespace WEB_APP.Controllers
 
         public async Task<IActionResult> DoctorAppointment()
         {
+            List<Appointment> appointments = new List<Appointment>();
             var userId = _httpContextAccessor.HttpContext.Session.GetString("user_id");
             if (string.IsNullOrEmpty(userId))
                 return RedirectToAction("Login", "User");
@@ -79,9 +74,9 @@ namespace WEB_APP.Controllers
                     .FirstOrDefaultAsync();
 
             if (doctorInfo == null)
-                return NotFound("Doctor information not found.");
+                return View(appointments);
 
-            var appointments = await _context.Appointments
+            appointments = await _context.Appointments
                    .Where(x => x.DoctorId == doctorInfo.Id).Include(x => x.Doctor).Include(x => x.Patient)
                    .ToListAsync();
             return View(appointments);
