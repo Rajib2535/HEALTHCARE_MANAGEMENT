@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_UTILITY
+﻿namespace UTILITY
 {
     public static class ParallelTaskExtension
     {

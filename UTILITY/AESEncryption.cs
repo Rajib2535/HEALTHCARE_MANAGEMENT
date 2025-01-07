@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace CORPORATE_DISBURSEMENT_UTILITY
+namespace UTILITY
 {
     /// <summary>
     /// used in login for password encryption

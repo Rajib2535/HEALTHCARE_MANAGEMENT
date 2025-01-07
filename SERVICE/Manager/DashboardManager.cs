@@ -1,6 +1,5 @@
 ﻿using Serilog;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +13,8 @@ using DocumentFormat.OpenXml.Office.CustomUI;
 using Newtonsoft.Json;
 using DATA.Interface;
 using SERVICE.Interface;
+using DATA.Models.RequestReponseModels;
+using DATA.Models.ViewModels;
 
 namespace SERVICE.Manager
 {

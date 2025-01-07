@@ -1,6 +1,6 @@
 ﻿
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
 using DATA.Models;
+using DATA.Models.ViewModels.UserPermissionViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SERVICE.Interface;

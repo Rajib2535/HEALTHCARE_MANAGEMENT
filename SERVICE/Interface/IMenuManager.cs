@@ -1,6 +1,7 @@
-﻿using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
+﻿
 using DATA.Models;
+using DATA.Models.ViewModels;
+using DATA.Models.ViewModels.UserPermissionViewModels;
 
 namespace SERVICE.Interface
 {

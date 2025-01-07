@@ -1,5 +1,6 @@
-﻿using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
+﻿
 using DATA.Models;
+using DATA.Models.ViewModels.UserPermissionViewModels;
 
 namespace DATA.Interface
 {

@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.Helper
+﻿namespace DATA.Models.Helper
 {
     public class Helper
     {

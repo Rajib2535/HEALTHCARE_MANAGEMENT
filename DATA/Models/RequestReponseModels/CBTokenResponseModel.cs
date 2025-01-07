@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels
+﻿namespace DATA.Models.RequestReponseModels
 {
     public class CBTokenResponseModel
     {

@@ -1,9 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Office2010.PowerPoint;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
 using DATA.Interface;
 using DATA.Models;
+using DATA.Models.ViewModels.UserPermissionViewModels;
 
 namespace DATA.Repository
 {

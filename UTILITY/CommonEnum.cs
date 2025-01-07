@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace CORPORATE_DISBURSEMENT_UTILITY
+namespace UTILITY
 {
     /// <summary>
     /// Generic class to keep commonly used enumerations in project

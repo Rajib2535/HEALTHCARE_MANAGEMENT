@@ -1,5 +1,5 @@
-﻿using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
-using CORPORATE_DISBURSEMENT_UTILITY;
+﻿using DATA.Models.RequestReponseModels;
+using UTILITY;
 
 namespace SERVICE.Interface
 {

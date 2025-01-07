@@ -1,7 +1,7 @@
 ﻿using DATA.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels
+namespace DATA.Models.ViewModels.UserPermissionViewModels
 {
     public partial class ComRolePermissionscs
     {

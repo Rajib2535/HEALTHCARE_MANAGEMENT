@@ -1,8 +1,5 @@
 ﻿
 using COMMON_SERVICE.Service;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
 using CORPORATE_DISBURSEMENT_UTILITY;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +13,9 @@ using DATA.Models.ViewModels;
 using SERVICE.Interface;
 using DATA.Models;
 using WEB_APP.Extensions;
+using DATA.Models.RequestReponseModels;
+using DATA.Models.ViewModels.UserPermissionViewModels;
+using UTILITY;
 
 namespace WEB_APP.Controllers
 {

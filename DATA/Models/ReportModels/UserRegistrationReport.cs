@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ReportModels
+﻿namespace DATA.Models.ReportModels
 {
     public class UserRegistrationSummary
     {

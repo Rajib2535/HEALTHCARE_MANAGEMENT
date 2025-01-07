@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace CORPORATE_DISBURSEMENT_UTILITY
+namespace UTILITY
 {
     /// <summary>
     /// helper class for converting razor view to string

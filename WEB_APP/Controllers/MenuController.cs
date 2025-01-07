@@ -1,12 +1,13 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels.UserPermissionViewModels;
+
 using System.Net;
 using System.Text.Json;
 using DATA.Models;
 using SERVICE.Interface;
 using WEB_APP.Extensions;
+using DATA.Models.ViewModels.UserPermissionViewModels;
 
 namespace WEB_APP.Controllers
 {

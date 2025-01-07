@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CORPORATE_DISBURSEMENT_UTILITY;
+using Microsoft.AspNetCore.Http;
 using Serilog;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace CORPORATE_DISBURSEMENT_UTILITY
+namespace UTILITY
 {
     public interface IHttpClientExtensions
     {
-        Task<ResponseModel> PostRequest(string uri, string content, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
-        Task<ResponseModel> PostXMLRequest(string uri, string content, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
-        Task<ResponseModel> GetRequest(string uri, Dictionary<string, string>? headers = null, string request_body = "", bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
-        Task<ResponseModel> PostHttpFormURLEncodedRequest(string uri, Dictionary<string, string> urlEncodedItems, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
+        Task<ResponseModel> PostRequest(string uri, string content, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
+        Task<ResponseModel> PostXMLRequest(string uri, string content, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
+        Task<ResponseModel> GetRequest(string uri, Dictionary<string, string> headers = null, string request_body = "", bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
+        Task<ResponseModel> PostHttpFormURLEncodedRequest(string uri, Dictionary<string, string> urlEncodedItems, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false);
     }
     public class HttpClientExtensions : IHttpClientExtensions
     {
@@ -22,7 +23,7 @@ namespace CORPORATE_DISBURSEMENT_UTILITY
             _logger = logger;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<ResponseModel> PostRequest(string uri, string content, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
+        public async Task<ResponseModel> PostRequest(string uri, string content, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
         {
             var responseModel = new ResponseModel();
             string responseBody = string.Empty;
@@ -70,7 +71,7 @@ namespace CORPORATE_DISBURSEMENT_UTILITY
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetRequest(string uri, Dictionary<string, string>? headers = null, string request_body = "", bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
+        public async Task<ResponseModel> GetRequest(string uri, Dictionary<string, string> headers = null, string request_body = "", bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
         {
             string responseBody = string.Empty;
             var responseModel = new ResponseModel();
@@ -116,7 +117,7 @@ namespace CORPORATE_DISBURSEMENT_UTILITY
             }
             return responseModel;
         }
-        public async Task<ResponseModel> PostHttpFormURLEncodedRequest(string uri, Dictionary<string, string> urlEncodedItems, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
+        public async Task<ResponseModel> PostHttpFormURLEncodedRequest(string uri, Dictionary<string, string> urlEncodedItems, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
         {
             var responseModel = new ResponseModel();
             try
@@ -154,7 +155,7 @@ namespace CORPORATE_DISBURSEMENT_UTILITY
             return responseModel;
         }
 
-        public async Task<ResponseModel> PostXMLRequest(string uri, string content, Dictionary<string, string>? headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
+        public async Task<ResponseModel> PostXMLRequest(string uri, string content, Dictionary<string, string> headers = null, bool is_timeout = false, int timeout_seconds = 30, bool is_rcvc_true = false)
         {
             var responseModel = new ResponseModel();
             string responseBody = string.Empty;

@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -13,6 +11,8 @@ using Serilog;
 using ILogger = Serilog.ILogger;
 using System.Net;
 using WEB_APP.Extensions;
+using DATA.Models.RequestReponseModels;
+using DATA.Models.ViewModels;
 
 namespace WEB_APP.Controllers
 {

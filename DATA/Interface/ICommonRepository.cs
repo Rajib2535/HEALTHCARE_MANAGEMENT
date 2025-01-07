@@ -1,4 +1,4 @@
-﻿using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models;
+﻿
 using DATA.Models;
 
 namespace DATA.Interface

@@ -5,7 +5,7 @@ using Serilog;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CORPORATE_DISBURSEMENT_UTILITY
+namespace UTILITY
 {
     public static class RSAManagement
     {
@@ -17,9 +17,9 @@ namespace CORPORATE_DISBURSEMENT_UTILITY
 
             rsa.KeySize = _configuration.GetValue<int>("RSA:KeySize");
             var directory = Path.Combine(_env.ContentRootPath, _configuration.GetValue<string>("RSA:KeyLocation"), version);
-            bool exists = System.IO.Directory.Exists(directory);
+            bool exists = Directory.Exists(directory);
             if (!exists)
-                System.IO.Directory.CreateDirectory(directory);
+                Directory.CreateDirectory(directory);
             var genpublicKey = Path.Combine(directory, @"publickey.pem");
             var genprivatekey = Path.Combine(directory, @"privatekey.pem");
             using (var fs = File.Create(genprivatekey))

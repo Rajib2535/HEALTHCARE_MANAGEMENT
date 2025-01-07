@@ -1,6 +1,8 @@
-﻿using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.RequestReponseModels;
-using CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels;
+﻿
 using CORPORATE_DISBURSEMENT_UTILITY;
+using DATA.Models.RequestReponseModels;
+using DATA.Models.ViewModels;
+using UTILITY;
 
 namespace COMMON_SERVICE.Interface
 {

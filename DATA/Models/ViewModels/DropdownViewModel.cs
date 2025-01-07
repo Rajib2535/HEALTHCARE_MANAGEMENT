@@ -1,4 +1,4 @@
-﻿namespace CORPORATE_DISBURSEMENT_ADMIN_DAL.Models.ViewModels
+﻿namespace DATA.Models.ViewModels
 {
     public class DropdownViewModel
     {
